@@ -1,0 +1,1042 @@
+{% load dict_templates %}
+{% load static %}
+ {% load mathfilters %} 
+
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'eapcet_clgpredictor/template.css' %}">
+    <!-- CSS only -->
+{% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> {% endcomment %}
+    <script src="https://kit.fontawesome.com/265b320ee8.js" crossorigin="anonymous"></script>
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+</head>
+<body>
+   <div class="head">
+     <div class="headl">
+       <div class="lc1">
+         <div class="clgs" style="font-weight:1000">{{records}}</div>
+         <div>results</div>
+         <div>found</div>
+          <a href=" " class:"modify"><i class="fa fa-refresh">modify</i></a>
+       </div>
+       <div class="lc2">
+         <div style="font-weight:1000">EAPCET</div>          
+         <div>rank</div>
+         <div>:</div>
+         <div class="rank">{{rank}}</div>
+         <div>|</div>
+         <div>category</div>
+         <div>:</div>
+         <div>{{category}}</div>
+        </div>
+</div>
+      <a href="visualize"><div class="savelist">Visualize</div></a> 
+      <a href="#"><div class="savelist">Save</div></a> 
+      
+</div>
+  
+  
+  
+                                                      <!--cards-->
+
+  <div class="cards">
+    {% for clg in clgs_list  %}
+    <div class="clg">
+            <div class="cardtop">
+                <div class="institute">
+                  <a class="institutename" href="#">{{clg.inst_name|title|truncatechars:28}}</a>
+                  <a class="bookmark_icon" href="#"><i class="far fa-bookmark"></i></a>
+                  
+                </div>
+                <div class="instituteloc">
+                    <i class="fas fa-map-marker-alt"></i>
+                    {{clg.place|title}}                  
+                    <span class="pipe">|</span>
+                    <div class="code">{{clg.inst_code|upper}}</div>
+                    <span class="pipe">|</span>
+                    <div class = "aff">Affli:</div>
+                    <div class="code">{{clg.affliated_univ|upper}}</div>
+                </div>
+            </div>
+            <div class="cardbottom">
+                <div class="courseanddetails">
+                    <div class="course">
+                        {% if clg.branch_code == "CSE" %}
+                            {{branch.CSE|title}}
+                       {% elif clg.branch_code == "AI"%}
+                            {{branch.AI|title}}
+                       {% elif clg.branch_code == "AID"%}
+                            {{branch.AID|title}}
+                       {% elif clg.branch_code == "CIC"%}
+                            {{branch.CIC|title}}
+                        {% elif clg.branch_code == "CSM"%}
+                            {{branch.CSM|title}}
+                        {% elif clg.branch_code == "CSC"%}
+                            {{branch.CSC|title}}
+                        {% elif clg.branch_code == "CSD"%}
+                            {{branch.CSD|title}}
+                        {% elif clg.branch_code == "CSI"%}
+                            {{branch.CSI|title}}
+                        {% elif clg.branch_code == "CSM"%}
+                            {{branch.CSM|title}}
+                        {% elif clg.branch_code == "CSN"%}
+                            {{branch.CSN|title}}
+                        {% elif clg.branch_code == "CSO"%}
+                            {{branch.CSO|title}}
+                        {% elif clg.branch_code == "CSW"%}
+                            {{branch.CSW|title}}
+                        {% elif clg.branch_code == "INF"%}
+                            {{branch.INF|title}}
+                        {% elif clg.branch_code == "CME"%}
+                            {{branch.CME|title}}
+                        {% elif clg.branch_code == "CST"%}
+                            {{branch.CST|title}}
+                        {% elif clg.branch_code == "DTD"%}
+                            {{branch.DTD|title}}
+                        {% elif clg.branch_code == "ITE"%}
+                            {{branch.ITE|title}}
+                        {% elif clg.branch_code == "BME"%}
+                            {{branch.BME|title}}
+                        {% elif clg.branch_code == "ECE"%}
+                            {{branch.ECE|title}}
+                        {% elif clg.branch_code == "ECI"%}
+                            {{branch.ECI|title}}
+                        {% elif clg.branch_code == "ECM"%}
+                            {{branch.ECM|title}}
+                        {% elif clg.branch_code == "EEE"%}
+                            {{branch.EEE|title}}
+                        {% elif clg.branch_code == "EIE"%}
+                            {{branch.EIE|title}}
+                        {% elif clg.branch_code == "ETM"%}
+                            {{branch.ETM|title}}
+                        {% elif clg.branch_code == "ANE"%}
+                            {{branch.ANE|title}}
+                        {% elif clg.branch_code == "AUT"%}
+                            {{branch.AUT|title}}
+                        {% elif clg.branch_code == "CIV"%}
+                            {{branch.CIV|title}}
+                        {% elif clg.branch_code == "IPE"%}
+                            {{branch.IPE|title}}
+                        {% elif clg.branch_code == "MCT"%}
+                            {{branch.MCT|title}}
+                        {% elif clg.branch_code == "MEC"%}
+                            {{branch.MEC|title}}
+                        {% elif clg.branch_code == "MET"%}
+                            {{branch.MET|title}}
+                        {% elif clg.branch_code == "MMS"%}
+                            {{branch.MMS|title}}
+                        {% elif clg.branch_code == "MMT"%}
+                            {{branch.MMT|title}}
+                        {% elif clg.branch_code == "MTE"%}
+                            {{branch.MTE|title}}
+                        {% elif clg.branch_code == "PLG"%}
+                            {{branch.PLG|title}}
+                        {% elif clg.branch_code == "AGR"%}
+                            {{branch.AGR|title}}
+                        {% elif clg.branch_code == "BIO"%}
+                            {{branch.BIO|title}}
+                        {% elif clg.branch_code == "CHE"%}
+                            {{branch.CHE|title}}
+                        {% elif clg.branch_code == "DRG"%}
+                            {{branch.DRG|title}}
+                        {% elif clg.branch_code == "FDS"%}
+                            {{branch.FDS|title}}
+                        {% elif clg.branch_code == "FPT"%}
+                            {{branch.FPT|title}}
+                        {% elif clg.branch_code == "FSP"%}
+                            {{branch.FSP|title}}
+                        {% elif clg.branch_code == "MIN"%}
+                            {{branch.MIN|title}}
+                        {% elif clg.branch_code == "TEX"%}
+                            {{branch.TEX|title}}
+                        {% elif clg.branch_code == "CS"%}
+                            {{branch.CS|title}}
+                        {% elif clg.branch_code == "PHM"%}
+                            {{branch.PHM|title}}
+                        {% elif clg.branch_code == "PET"%}
+                            {{branch.PET|title}}
+                        {% elif clg.branch_code == "CAD"%}
+                            {{branch.CAD|title}}
+                        {% elif clg.branch_code == "PEE"%}
+                            {{branch.PEE|title}}
+                        {% elif clg.branch_code == "PHD"%}
+                            {{branch.PHD|title}}
+                        {% elif clg.branch_code == "CAI"%}
+                            {{branch.CAI|title}}
+                        {% elif clg.branch_code == "FDE"%}
+                            {{branch.FDE|title}}
+                        {% elif clg.branch_code == "PCE"%}
+                            {{branch.PCE|title}}
+                        {% elif clg.branch_code == "CIT"%}
+                            {{branch.CIT|title}}
+                        {% elif clg.branch_code == "PHE"%}
+                            {{branch.PHE|title}}
+                        {% elif clg.branch_code == "AIM"%}
+                            {{branch.AIM|title}}
+                        {% elif clg.branch_code == "DS"%}
+                            {{branch.DS|title}}
+                        {% elif clg.branch_code == "AMG"%}
+                            {{branch.AMG|title}}
+                        {% elif clg.branch_code == "CSB"%}
+                            {{branch.CSB|title}}
+                        {% elif clg.branch_code == "IOT"%}
+                            {{branch.IOT|title}}
+                        {% elif clg.branch_code == "CBA"%}
+                            {{branch.CBA|title}}
+                        {% elif clg.branch_code == "ASE"%}
+                            {{branch.ASE|title}}
+                        {% elif clg.branch_code == "CER"%}
+                            {{branch.CER|title}}
+                        {% elif clg.branch_code == "GIN"%}
+                            {{branch.GIN|title}}
+                        {% elif clg.branch_code == "IST"%}
+                            {{branch.IST|title}}
+                        {% elif clg.branch_code == "NAM"%}
+                            {{branch.NAM|title}}
+                        {% elif clg.branch_code == "MRB"%}
+                            {{branch.MRB|title}}
+                        {% elif clg.branch_code == "CSS"%}
+                            {{branch.CSS|title}}
+                        {% elif clg.branch_code == "ECT"%}
+                            {{branch.ECT|title}}
+                        {% elif clg.branch_code == "RBT"%}
+                            {{branch.RBT|title}}
+                        {% elif clg.branch_code == "CCT"%}
+                            {{branch.CCT|title}}
+                        {% elif clg.branch_code == "FDT"%}
+                            {{branch.FDT|title}}
+                    
+                        
+                        
+                        
+                       {% endif %}  
+                       
+                    </div>
+                </div>
+                <div class="ch-fee">
+                    <div class="branchcode">{{clg.branch_code}}</div>
+                    <div class="pipe"> | </div>
+                    {% if gender == 'M' %}
+                      {% if category == "OC" %}
+                         {% if  clg.oc_boys_cr|sub:rank  <= 800 %}
+                             <div class="chancesred">Low</div>
+                         {% elif clg.oc_boys_cr|sub:rank  > 800 and clg.oc_boys_cr|sub:rank <= 2400 %}
+                             <div class="chancesorange">Medium</div>
+                         {% elif clg.oc_boys_cr|sub:rank  > 2400 %}
+                             <div class="chancesgreen">High</div>
+                        {% else %}
+                             <div class="chancesorange">Medium</div>
+                         {% endif %}
+                       {% elif category == "BC-A"%}
+                         {% if  clg.bca_boys_cr|sub:rank  <= 800 %}
+                             <div class="chancesred">Low</div>
+                         {% elif clg.bca_boys_cr|sub:rank  > 800 and clg.bca_boys_cr|sub:rank <= 2400 %}
+                             <div class="chancesorange">Medium</div>
+                         {% elif clg.bca_boys_cr|sub:rank  > 2400 %}
+                             <div class="chancesgreen">High</div>
+                         {% else %}
+                             <div class="chancesorange">Medium</div>
+                         {% endif %}
+                         {% elif category == "BC-B"%}
+                         {% if  clg.bcb_boys_cr|sub:rank  <= 800 %}
+                             <div class="chancesred">Low</div>
+                         {% elif clg.bcb_boys_cr|sub:rank  > 800 and clg.bcb_boys_cr|sub:rank <= 2400 %}
+                             <div class="chancesorange">Medium</div>
+                         {% elif clg.bcb_boys_cr|sub:rank  > 2400 %}
+                             <div class="chancesgreen">High</div>
+                         {% else %}
+                             <div class="chancesorange">Medium</div>
+                         {% endif %}
+                         {% elif category == "BC-C"%}
+                         {% if  clg.bcc_boys_cr|sub:rank  <= 800 %}
+                             <div class="chancesred">Low</div>
+                         {% elif clg.bcc_boys_cr|sub:rank  > 800 and clg.bcc_boys_cr|sub:rank <= 2400 %}
+                             <div class="chancesorange">Medium</div>
+                         {% elif clg.bcc_boys_cr|sub:rank  > 2400 %}
+                             <div class="chancesgreen">High</div>
+                         {% else %}
+                             <div class="chancesorange">Medium</div>
+                         {% endif %}
+                         {% elif category == "BC-D"%}
+                         {% if  clg.bcd_boys_cr|sub:rank  <= 800 %}
+                             <div class="chancesred">Low</div>
+                         {% elif clg.bcd_boys_cr|sub:rank  > 800 and clg.bcd_boys_cr|sub:rank <= 2400 %}
+                             <div class="chancesorange">Medium</div>
+                         {% elif clg.bcd_boys_cr|sub:rank  > 2400 %}
+                             <div class="chancesgreen">High</div>
+                         {% else %}
+                             <div class="chancesorange">Medium</div>
+                         {% endif %}
+                         {% elif category == "BC-E"%}
+                         {% if  clg.bce_boys_cr|sub:rank  <= 800 %}
+                             <div class="chancesred">Low</div>
+                         {% elif clg.bce_boys_cr|sub:rank  > 800 and clg.bce_boys_cr|sub:rank <= 2400 %}
+                             <div class="chancesorange">Medium</div>
+                         {% elif clg.bce_boys_cr|sub:rank  > 2400 %}
+                             <div class="chancesgreen">High</div>
+                         {% else %}
+                             <div class="chancesorange">Medium</div>
+                         {% endif %}
+                         {% elif category == "SC"%}
+                         {% if  clg.sc_boys_cr|sub:rank  <= 800 %}
+                             <div class="chancesred">Low</div>
+                         {% elif clg.sc_boys_cr|sub:rank  > 800 and clg.sc_boys_cr|sub:rank <= 2400 %}
+                             <div class="chancesorange">Medium</div>
+                         {% elif clg.sc_boys_cr|sub:rank  > 2400 %}
+                             <div class="chancesgreen">High</div>
+                         {% else %}
+                             <div class="chancesorange">Medium</div>
+                         {% endif %}
+                         {% elif category == "ST" or category == "PWD"%}
+                         {% if  clg.st_boys_cr|sub:rank  <= 800 %}
+                             <div class="chancesred">Low</div>
+                         {% elif clg.st_boys_cr|sub:rank  > 800 and clg.st_boys_cr|sub:rank <= 2400 %}
+                             <div class="chancesorange">Medium</div>
+                         {% elif clg.st_boys_cr|sub:rank  > 2400 %}
+                             <div class="chancesgreen">High</div>
+                         {% else %}
+                             <div class="chancesorange">Medium</div>
+                         {% endif %}
+                         {% elif category == "GEN_EWS"%}
+                         {% if  clg.oc_ews_boys_cr|sub:rank  <= 800 %}
+                             <div class="chancesred">Low</div>
+                         {% elif clg.oc_ews_boys_cr|sub:rank  > 800 and clg.oc_ews_boys_cr|sub:rank <= 2400 %}
+                             <div class="chancesorange">Medium</div>
+                         {% elif clg.oc_ews_boys_cr|sub:rank  > 2400 %}
+                             <div class="chancesgreen">High</div>
+                         {% else %}
+                             <div class="chancesorange">Medium</div>
+                         {% endif %}
+                      {% endif %}
+                  {% elif gender == "F"%}
+                    {% if category == "OC" %}
+                        {% if  clg.oc_girls_cr|sub:rank  <= 800 %}
+                        <div class="chancesred">Low</div>
+                        {% elif clg.oc_girls_cr|sub:rank  > 800 and clg.oc_girls_cr|sub:rank <= 2400 %}
+                        <div class="chancesorange">Medium</div>
+                        {% elif clg.oc_girls_cr|sub:rank  > 2400 %}
+                        <div class="chancesgreen">High</div>
+                        {% else %}
+                        <div class="chancesorange">Medium</div>
+                        {% endif %}
+                  {% elif category == "BC-A"%}
+                        {% if  clg.bca_girls_cr|sub:rank  <= 800 %}
+                        <div class="chancesred">Low</div>
+                        {% elif clg.bca_girls_cr|sub:rank  > 800 and clg.bca_girls_cr|sub:rank <= 2400 %}
+                        <div class="chancesorange">Medium</div>
+                        {% elif clg.bca_girls_cr|sub:rank  > 2400 %}
+                        <div class="chancesgreen">High</div>
+                        {% else %}
+                        <div class="chancesorange">Medium</div>
+                        {% endif %}
+                    {% elif category == "BC-B"%}
+                        {% if  clg.bcb_girls_cr|sub:rank  <= 800 %}
+                        <div class="chancesred">Low</div>
+                        {% elif clg.bcb_girls_cr|sub:rank  > 800 and clg.bcb_girls_cr|sub:rank <= 2400 %}
+                        <div class="chancesorange">Medium</div>
+                        {% elif clg.bcb_girls_cr|sub:rank  > 2400 %}
+                        <div class="chancesgreen">High</div>
+                        {% else %}
+                        <div class="chancesorange">Medium</div>
+                        {% endif %}
+                    {% elif category == "BC-C"%}
+                        {% if  clg.bcc_girls_cr|sub:rank  <= 800 %}
+                        <div class="chancesred">Low</div>
+                        {% elif clg.bcc_girls_cr|sub:rank  > 800 and clg.bcc_girls_cr|sub:rank <= 2400 %}
+                        <div class="chancesorange">Medium</div>
+                        {% elif clg.bcc_girls_cr|sub:rank  > 2400 %}
+                        <div class="chancesgreen">High</div>
+                        {% else %}
+                        <div class="chancesorange">Medium</div>
+                        {% endif %}
+                    {% elif category == "BC-D"%}
+                        {% if  clg.bcd_girls_cr|sub:rank  <= 800 %}
+                        <div class="chancesred">Low</div>
+                        {% elif clg.bcd_girls_cr|sub:rank  > 800 and clg.bcd_girls_cr|sub:rank <= 2400 %}
+                        <div class="chancesorange">Medium</div>
+                        {% elif clg.bcd_girls_cr|sub:rank  > 2400 %}
+                        <div class="chancesgreen">High</div>
+                        {% else %}
+                        <div class="chancesorange">Medium</div>
+                        {% endif %}
+                    {% elif category == "BC-E"%}
+                        {% if  clg.bce_girls_cr|sub:rank  <= 800 %}
+                        <div class="chancesred">Low</div>
+                        {% elif clg.bce_girls_cr|sub:rank  > 800 and clg.bce_girls_cr|sub:rank <= 2400 %}
+                        <div class="chancesorange">Medium</div>
+                        {% elif clg.bce_girls_cr|sub:rank  > 2400 %}
+                        <div class="chancesgreen">High</div>
+                        {% else %}
+                        <div class="chancesorange">Medium</div>
+                        {% endif %}
+                    {% elif category == "SC"%}
+                        {% if  clg.sc_girls_cr|sub:rank  <= 800 %}
+                        <div class="chancesred">Low</div>
+                         {% elif clg.sc_girls_cr|sub:rank  > 800 and clg.sc_girls_cr|sub:rank <= 2400 %}
+                        <div class="chancesorange">Medium</div>
+                         {% elif clg.sc_girls_cr|sub:rank  > 2400 %}
+                        <div class="chancesgreen">High</div>
+                         {% else %}
+                        <div class="chancesorange">Medium</div>
+                         {% endif %}
+                    {% elif category == "ST" or category == "PWD"%}
+                         {% if  clg.st_girls_cr|sub:rank  <= 800 %}
+                        <div class="chancesred">Low</div>
+                         {% elif clg.st_girls_cr|sub:rank  > 800 and clg.st_girls_cr|sub:rank <= 2400 %}
+                        <div class="chancesorange">Medium</div>
+                         {% elif clg.st_girls_cr|sub:rank  > 2400 %}
+                        <div class="chancesgreen">High</div>
+                         {% else %}
+                        <div class="chancesorange">Medium</div>
+                         {% endif %}
+                    {% elif category == "GEN_EWS"%}
+                         {% if  clg.oc_ews_girls_cr|sub:rank  <= 800 %}
+                        <div class="chancesred">Low</div>
+                         {% elif clg.oc_ews_girls_cr|sub:rank  > 800 and clg.oc_ews_girls_cr|sub:rank <= 2400 %}
+                        <div class="chancesorange">Medium</div>
+                         {% elif clg.oc_ews_girls_cr|sub:rank  > 2400 %}
+                        <div class="chancesgreen">High</div>
+                         {% else %}
+                        <div class="chancesorange">Medium</div>
+                         {% endif %}
+                    {% endif %}
+
+              {% endif %}
+                    
+                    <div class="pipe"> | </div>
+                    <div>Fee</div>
+                    <div>:</div>
+                    <div class="fees"><i class="fas fa-rupee-sign">&nbsp</i>{{clg.college_fee}}</div>
+                </div>
+                <div class="cutofftable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td class="2020">2020 cutoff</td>
+                                <td class="2019">2019 cutoff</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="20cut">
+                                    {% if gender == "M" %}
+                                        {% if category == "OC" %}
+                                            {% if clg.oc_boys_cr == "NULL"%}
+                                               NA
+                                            {% else %}
+                                              {{clg.oc_boys_cr}}
+                                            {% endif %}
+                                        {% endif %}
+                                        {% if category == "BC-A" %}
+                                            {% if clg.bca_boys_cr == "NULL"%}
+                                               NA
+                                            {% else %}
+                                              {{clg.bca_boys_cr}}
+                                            {% endif %}
+                                        {% endif %}
+                                        {% if category == "BC-B" %}
+                                            {% if clg.bcb_boys_cr == "NULL"%}
+                                               NA
+                                            {% else %}
+                                              {{clg.bcb_boys_cr}}
+                                            {% endif %}
+                                        {% endif %}
+                                        {% if category == "BC-C" %}
+                                            {% if clg.bcc_boys_cr == "NULL"%}
+                                               NA
+                                            {% else %}
+                                              {{clg.bcc_boys_cr}}
+                                            {% endif %}
+                                        {% endif %}
+                                        {% if category == "BC-D" %}
+                                            {% if clg.bcd_boys_cr == "NULL"%}
+                                               NA
+                                            {% else %}
+                                              {{clg.bcd_boys_cr}}
+                                            {% endif %}
+                                        {% endif %}
+                                        {% if category == "BC-E" %}
+                                            {% if clg.bce_boys_cr == "NULL"%}
+                                               NA
+                                            {% else %}
+                                              {{clg.bce_boys_cr}}
+                                            {% endif %}
+                                        {% endif %}
+                                        {% if category == "SC" %}
+                                            {% if clg.sc_boys_cr == "NULL"%}
+                                               NA
+                                            {% else %}
+                                              {{clg.sc_boys_cr}}
+                                            {% endif %}
+                                        {% endif %}
+                                        {% if category == "ST" %}
+                                            {% if clg.st_boys_cr == "NULL"%}
+                                               NA
+                                            {% else %}
+                                              {{clg.st_boys_cr}}
+                                            {% endif %}
+                                        {% endif %}
+                                        {% if category == "GEN_EWS" %}
+                                            {% if clg.oc_ews_boys_cr %}
+                                            {{clg.oc_ews_boys_cr}} 
+                                            {% else %}
+                                              NA
+                                            {% endif %}
+                                        {% endif %}
+                                        {% if catgeory == "PWD" %}
+                                             NA
+                                        {% endif %}
+                                    {% elif gender == "F" %}
+                                    {% if category == "OC" %}
+                                    {% if clg.oc_girls_cr == "NULL"%}
+                                       NA
+                                    {% else %}
+                                      {{clg.oc_girls_cr}}
+                                    {% endif %}
+                                {% endif %}
+                                {% if category == "BC-A" %}
+                                    {% if clg.bca_girls_cr == "NULL"%}
+                                       NA
+                                    {% else %}
+                                      {{clg.bca_girls_cr}}
+                                    {% endif %}
+                                {% endif %}
+                                {% if category == "BC-B" %}
+                                    {% if clg.bcb_girls_cr == "NULL"%}
+                                       NA
+                                    {% else %}
+                                      {{clg.bcb_girls_cr}}
+                                    {% endif %}
+                                {% endif %}
+                                {% if category == "BC-C" %}
+                                    {% if clg.bcc_girls_cr == "NULL"%}
+                                       NA
+                                    {% else %}
+                                      {{clg.bcc_girls_cr}}
+                                    {% endif %}
+                                {% endif %}
+                                {% if category == "BC-D" %}
+                                    {% if clg.bcd_girls_cr == "NULL"%}
+                                       NA
+                                    {% else %}
+                                      {{clg.bcd_girls_cr}}
+                                    {% endif %}
+                                {% endif %}
+                                {% if category == "BC-E" %}
+                                    {% if clg.bce_girls_cr == "NULL"%}
+                                       NA
+                                    {% else %}
+                                      {{clg.bce_girls_cr}}
+                                    {% endif %}
+                                {% endif %}
+                                {% if category == "SC" %}
+                                    {% if clg.sc_girls_cr == "NULL"%}
+                                       NA
+                                    {% else %}
+                                      {{clg.sc_girls_cr}}
+                                    {% endif %}
+                                {% endif %}
+                                {% if category == "ST" %}
+                                    {% if clg.st_girls_cr == "NULL"%}
+                                       NA
+                                    {% else %}
+                                      {{clg.st_girls_cr}}
+                                    {% endif %}
+                                {% endif %}
+                                {% if category == "GEN_EWS" %}
+                                    {% if clg.oc_ews_girls_cr %}
+                                      {{clg.oc_ews_girls_cr}}
+                                    {% else %}
+                                       NA
+                                    {% endif %}
+                                {% endif %}
+                                {% if category == "PWD" %}
+                                      NA
+                                {% endif %}
+                                    {% endif %}
+                                </td>
+                                <td class="19cut">NA</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="connectandsurvey">
+                    <div class="connect">Connect</div>
+                    <div class="survey">Survey</div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+      {% comment %} pagination {% endcomment %}
+      <nav class = "data-pagination">
+        <a href=# disabled><i class="ion-chevron-left"></i></a>
+        <ul>
+          <li class="current"><a href=#1>1</a>
+          <li><a href=#2>2</a>
+          <li><a href=#3>3</a>
+          <li><a href=#4>4</a>
+          <li><a href=#5>5</a>
+          <li><a href=#6>6</a>
+          <li><a href=#7>7</a>
+          <li><a href=#8>8</a>
+          <li><a href=#9>9</a>
+          <li><a href=#10>…</a>
+          <li><a href=#41>41</a>
+        </ul>
+        <a href=#2><i class="ion-chevron-right"></i></a>
+      </nav>
+
+    
+</body>
+        {% comment %} <div class="clg">
+            <div class="cardtop">
+                <div class="institute">
+                    <a class="institutename" href="#">SV University</a>
+                    <img class="bookmark" src="file:///C:/Users/K%20LOKESH/Downloads/bookmarks%20icon.svg">
+                </div>
+                <div class="instituteloc">
+                  <i class="fas fa-map-marked-alt"></i>
+                    Tirupati                  
+                    <span class="pipe">|</span>
+                    <div class="code">SVUCE</div>
+                </div>
+            </div>
+            <div class="cardbottom">
+                <div class="courseanddetails">
+                    <div class="course">Computer science Engineering</div>
+                </div>
+                <div class="ch-fee">
+                    <div class="branchcode">CSE</div>
+                    <div class="pipe"> | </div>
+                    <div class="chancesorange">High </div>
+                    <div class="pipe"> | </div>
+                    <div>Fee</div>
+                    <div>:</div>
+                    <div class="fees">₹ 39,700</div>
+                </div>
+                <div class="cutofftable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td class="2020">2020 cutoff</td>
+                                <td class="2019">2019 cutoff</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="20cut">8734</td>
+                                <td class="19cut">7988</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="connectandsurvey">
+                    <div class="connect">Connect</div>
+                    <div class="survey">Survey</div>
+                </div>
+            </div>
+        </div>
+        <div class="clg">
+            <div class="cardtop">
+                <div class="institute">
+                    <a class="institutename" href="#">JNTU Anantapur</a>
+                    <img class="bookmark" src="file:///C:/Users/K%20LOKESH/Downloads/bookmarks%20icon.svg">
+                </div>
+                <div class="instituteloc">
+                  <i class="fas fa-map-marked-alt"></i>
+                    Anantapur                  
+                    <span class="pipe">|</span>
+                    <div class="code">JNTA</div>
+                </div>
+            </div>
+            <div class="cardbottom">
+                <div class="courseanddetails">
+                    <div class="course">Computer science Engineering</div>
+                </div>
+                <div class="ch-fee">
+                    <div class="chancesred">High </div>
+                    <div class="pipe"> | </div>
+                    <div class="fees">₹ 39,700</div>
+                </div>
+                <div class="cutofftable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td class="2020">2020 cutoff</td>
+                                <td class="2019">2019 cutoff</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="20cut">8734</td>
+                                <td class="19cut">7988</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="connectandsurvey">
+                    <div class="connect">Connect</div>
+                    <div class="survey">Survey</div>
+                </div>
+            </div>
+        </div> {% endcomment %}
+        {% comment %} <div class="clg">
+            <div class="cardtop">
+                <div class="institute">
+                    <a class="institutename" href="#">Andhra University</a>
+                    <img class="bookmark" src="file:///C:/Users/K%20LOKESH/Downloads/bookmarks%20icon.svg">
+                </div>
+                <div class="instituteloc">
+                  <i class="fas fa-map-marked-alt"></i>
+                    kakinada                  
+                    <span class="pipe">|</span>
+                    <div class="code">AUCE</div> 
+                </div>
+            </div>
+            <div class="cardbottom">
+                <div class="courseanddetails">
+                    <div class="course">Computer science Engineering</div>
+                </div>
+                <div class="ch-fee">
+                    <div class="chancesgreen">High </div>
+                    <div class="pipe"> | </div>
+                    <div class="fees">₹ 39,700</div>
+                </div>
+                <div class="cutofftable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td class="2020">2020 cutoff</td>
+                                <td class="2019">2019 cutoff</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="20cut">8734</td>
+                                <td class="19cut">7988</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="connectandsurvey">
+                    <div class="connect">Connect</div>
+                    <div class="survey">Survey</div>
+                </div>
+            </div>
+        </div>
+        <div class="clg">
+            <div class="cardtop">
+                <div class="institute">
+                    <a class="institutename" href="#">JNTU kakinada</a>
+                    <img class="bookmark" src="file:///C:/Users/K%20LOKESH/Downloads/bookmarks%20icon.svg">
+                </div>
+                <div class="instituteloc">
+                  <i class="fas fa-map-marked-alt"></i>
+                    kakinada                  
+                    <span class="pipe">|</span>
+                    <div class="code">JNTK</div> 
+                </div>
+            </div>
+            <div class="cardbottom">
+                <div class="courseanddetails">
+                    <div class="course">Computer science Engineering</div>
+                </div>
+                <div class="ch-fee">
+                    <div class="chancesgreen">High </div>
+                    <div class="pipe"> | </div>
+                    <div class="fees">₹ 39,700</div>
+                </div>
+                <div class="cutofftable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td class="2020">2020 cutoff</td>
+                                <td class="2019">2019 cutoff</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="20cut">8734</td>
+                                <td class="19cut">7988</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="connectandsurvey">
+                    <div class="connect">Connect</div>
+                    <div class="survey">Survey</div>
+                </div>
+            </div>
+        </div>
+        <div class="clg">
+            <div class="cardtop">
+                <div class="institute">
+                    <a class="institutename" href="#">SV University</a>
+                    <img class="bookmark" src="file:///C:/Users/K%20LOKESH/Downloads/bookmarks%20icon.svg">
+                </div>
+                <div class="instituteloc">
+                  <i class="fas fa-map-marked-alt"></i>
+                    Tirupati                  
+                    <span class="pipe">|</span>
+                    <div class="code">JNTK</div> 
+                </div>
+            </div>
+            <div class="cardbottom">
+                <div class="courseanddetails">
+                    <div class="course">Computer science Engineering</div>
+                </div>
+                <div class="ch-fee">
+                    <div class="chancesred">High </div>
+                    <div class="pipe"> | </div>
+                    <div class="fees">₹ 39,700</div>
+                </div>
+                <div class="cutofftable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td class="2020">2020 cutoff</td>
+                                <td class="2019">2019 cutoff</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="20cut">8734</td>
+                                <td class="19cut">7988</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="connectandsurvey">
+                    <div class="connect">Connect</div>
+                    <div class="survey">Survey</div>
+                </div>
+            </div>
+        </div> {% endcomment %}
+        {% comment %} <div class="clg">
+            <div class="cardtop">
+                <div class="institute">
+                    <a class="institutename" href="#">JNTU Anantapur</a>
+                    <img class="bookmark" src="file:///C:/Users/K%20LOKESH/Downloads/bookmarks%20icon.svg">
+                </div>
+                <div class="instituteloc">
+                  <i class="fas fa-map-marked-alt"></i>
+                    Anantapur                  
+                    <span class="pipe">|</span>
+                    <div class="code">JNTK</div>  
+                </div>
+            </div>
+            <div class="cardbottom">
+                <div class="courseanddetails">
+                    <div class="course">Computer science Engineering</div>
+                </div>
+                <div class="ch-fee">
+                    <div class="chancesorange">High </div>
+                    <div class="pipe"> | </div>
+                    <div class="fees">₹ 39,700</div>
+                </div>
+                <div class="cutofftable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td class="2020">2020 cutoff</td>
+                                <td class="2019">2019 cutoff</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="20cut">8734</td>
+                                <td class="19cut">7988</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="connectandsurvey">
+                    <div class="connect">Connect</div>
+                    <div class="survey">Survey</div>
+                </div>
+            </div>
+        </div>
+        <div class="clg">
+            <div class="cardtop">
+                <div class="institute">
+                    <a class="institutename" href="#">Andhra University</a>
+                    <img class="bookmark" src="file:///C:/Users/K%20LOKESH/Downloads/bookmarks%20icon.svg">
+                </div>
+                <div class="instituteloc">
+                  <i class="fas fa-map-marked-alt"></i>
+                    kakinada                  
+                    <span class="pipe">|</span>
+                    <div class="code">JNTK</div>
+                </div>
+            </div>
+            <div class="cardbottom">
+                <div class="courseanddetails">
+                    <div class="course">Computer science Engineering</div>
+                </div>
+                <div class="ch-fee">
+                    <div class="chancesgreen">High </div>
+                    <div class="pipe"> | </div>
+                    <div class="fees">₹ 39,700</div>
+                </div>
+                <div class="cutofftable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td class="2020">2020 cutoff</td>
+                                <td class="2019">2019 cutoff</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="20cut">8734</td>
+                                <td class="19cut">7988</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="connectandsurvey">
+                    <div class="connect">Connect</div>
+                    <div class="survey">Survey</div>
+                </div>
+            </div>
+        </div>
+        <div class="clg">
+            <div class="cardtop">
+                <div class="institute">
+                    <a class="institutename" href="#">JNTU kakinada</a>
+                    <img class="bookmark" src="file:///C:/Users/K%20LOKESH/Downloads/bookmarks%20icon.svg">
+                </div>
+                <div class="instituteloc">
+                  <i class="fas fa-map-marked-alt"></i>
+                    kakinada                  
+                    <span class="pipe">|</span>
+                    <div class="code">JNTK</div>  
+                </div>
+            </div>
+            <div class="cardbottom">
+                <div class="courseanddetails">
+                    <div class="course">Computer science Engineering</div>
+                </div>
+                <div class="ch-fee">
+                    <div class="chancesred">High </div>
+                    <div class="pipe"> | </div>
+                    <div class="fees">₹ 39,700</div>
+                </div>
+                <div class="cutofftable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td class="2020">2020 cutoff</td>
+                                <td class="2019">2019 cutoff</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="20cut">8734</td>
+                                <td class="19cut">7988</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="connectandsurvey">
+                    <div class="connect">Connect</div>
+                    <div class="survey">Survey</div>
+                </div>
+            </div>
+        </div>
+        <div class="clg">
+            <div class="cardtop">
+                <div class="institute">
+                    <a class="institutename" href="#">SV University</a>
+                    <img class="bookmark" src="file:///C:/Users/K%20LOKESH/Downloads/bookmarks%20icon.svg">
+                </div>
+                <div class="instituteloc">
+                  <i class="fas fa-map-marked-alt"></i>
+                    Tirupati                  
+                    <span class="pipe">|</span>
+                    <div class="code">JNTK</div>  
+                </div>
+            </div>
+            <div class="cardbottom">
+                <div class="courseanddetails">
+                    <div class="course">Computer science Engineering</div>
+                </div>
+                <div class="ch-fee">
+                    <div class="chancesgreen">High </div>
+                    <div class="pipe"> | </div>
+                    <div class="fees">₹ 39,700</div>
+                </div>
+                <div class="cutofftable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td class="2020">2020 cutoff</td>
+                                <td class="2019">2019 cutoff</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="20cut">8734</td>
+                                <td class="19cut">7988</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="connectandsurvey">
+                    <div class="connect">Connect</div>
+                    <div class="survey">Survey</div>
+                </div>
+            </div>
+        </div>
+        <div class="clg">
+            <div class="cardtop">
+                <div class="institute">
+                    <a class="institutename" href="#">SV University</a>
+                    <img class="bookmark" src="file:///C:/Users/K%20LOKESH/Downloads/bookmarks%20icon.svg">
+                </div>
+                <div class="instituteloc">
+                  <i class="fas fa-map-marked-alt"></i>
+                    Tirupati                  
+                    <span class="pipe">|</span>
+                    <div class="code">SVUCE</div>
+                </div>
+            </div>
+            <div class="cardbottom">
+                <div class="courseanddetails">
+                    <div class="course">Computer science Engineering</div>
+                </div>
+                <div class="ch-fee">
+                    <div class="branchcode">CSE</div>
+                    <div class="pipe"> | </div>
+                    <div class="chancesorange">High </div>
+                    <div class="pipe"> | </div>
+                    <div>Fee</div>
+                    <div>:</div>
+                    <div class="fees">₹ 39,700</div>
+                </div>
+                <div class="cutofftable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td class="2020">2020 cutoff</td>
+                                <td class="2019">2019 cutoff</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="20cut">8734</td>
+                                <td class="19cut">7988</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="connectandsurvey">
+                    <div class="connect">Connect</div>
+                    <div class="survey">Survey</div>
+                </div>
+            </div>
+        </div> {% endcomment %}
+    

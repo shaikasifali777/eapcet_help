@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .charts{
+            width : 600px;
+            height : 600px;
+        }
+        .b_charts{
+            width : 100%;
+            height : 600px;
+        }
+         .chart_flex{
+            display : flex;
+            flex-wrap : wrap;
+            align-items : center;
+            justify-content : center;
+            gap : 18px;
+           
+        }
+        @media and (max-width:767px){
+            .b_charts{
+                width:600px;
+                height:600px;
+            }
+            .chart_flex{
+                display : flex;
+                flex-wrap : wrap;
+                flex-direction : column;
+                align-items : center;
+                justify-content : center;
+               
+            }
+        }
+        @media screen only and (max-width:600px){
+            .b_charts{
+                width:600px;
+                height:600px;
+            }
+            .charts{
+                width : 400px;
+                height : 450px;
+                padding: 10px 20px ;
+            }
+        }
+    </style>
+    {% comment %} chartjs cdn {% endcomment %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js" integrity="sha512-TW5s0IT/IppJtu76UbysrBH9Hy/5X41OTAbQuffZFU6lQ1rdcLHzpU5BzVvr/YFykoiMYZVWlr/PX1mDcfM9Qg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    
+    <title>Document</title>
+</head>
+<body>
+    <div class = "chart_flex">
+    <div class="charts">
+    <canvas id="dist_Chart" width="100" height="100"></canvas>
+    </div>
+    <div class="charts">
+        <canvas id="region_Chart" width="100" height="100"></canvas>
+        </div>
+    <div class="charts">
+        <canvas id="branch_Chart" width="100" height="100"></canvas>
+        </div>
+    <div class="charts">
+            <canvas id="fee_Chart" width="100" height="100"></canvas>
+        </div>
+    <div class="charts">
+            <canvas id="chances_Chart" width="100" height="100"></canvas>
+        </div>
+    </div>
+<script>
+
+    const ctx1 = document.getElementById('dist_Chart').getContext('2d');
+const dist_chart = new Chart(ctx1, {
+    type: 'bar',
+    data: {
+        labels: [{% for district in district_charts %}'{{district.dist}}',{% endfor %}],
+        datasets: [{
+            label: '# No Of Colleges ',
+            data: [{%  for district in district_charts %}{{district.dist_count}},{% endfor %}],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1,
+            datalabels :
+            {
+                anchor : 'end',
+                align : 'top',
+                offset : 6
+            }
+        }]
+    },
+    plugins: [ChartDataLabels],
+    options: {
+        maintainAspectRatio:false,
+        plugins :{
+            tooltip: {
+                titleFont: {
+                  size: 20
+                },
+                bodyFont: {
+                  size: 15
+                },
+                footerFont: {
+                  size: 15 // there is no footer by default
+                }
+              },
+            title : {
+                display : true,
+                text : "No Of Colleges Vs Districts",
+                padding:{
+                    top : 10,
+                    bottom : 20
+                } ,
+                font:
+                {
+                   size : 30
+                }
+            }
+        },
+        
+        scales: {
+            y: {
+                ticks:{
+                    font :{
+                        size : 10
+                    }
+                },
+                grid :{
+                    display : true
+                },
+                title :{
+                    display : true,
+                    text: "No Of Colleges",
+                    font:{
+                        size : 15,
+                    },
+    
+                },
+               
+                beginAtZero: true
+            },
+            x:{  
+                
+                ticks:{
+                font :{
+                    size : 10
+                }
+            }, 
+                
+                grid :{
+                    display : true
+                },
+                title:{
+                    display:true,
+                    text:"Districts Name",
+                    font : {
+                        size : 15
+                    }
+                },
+            },
+
+        }
+    }
+});
+
+const ctx2 = document.getElementById('region_Chart').getContext('2d');
+const region_chart = new Chart(ctx2, {
+    type: 'doughnut',
+    data: {
+        labels: [{% for region in region_charts %}'{{region.region}}',{% endfor %}],
+        datasets: [{
+            label: '# No Of Colleges ',
+            data: [{%  for region in region_charts %}{{region.reg_count}},{% endfor %}],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    plugins: [ChartDataLabels],
+    options: {
+        maintainAspectRatio:false,
+        plugins :{
+            tooltip: {
+                titleFont: {
+                  size: 20
+                },
+                bodyFont: {
+                  size: 15
+                },
+                footerFont: {
+                  size: 15 // there is no footer by default
+                }
+              },
+            title : {
+                display : true,
+                text : "No Of Colleges Vs Region",
+                padding:{
+                    top : 10,
+                    bottom : 20
+                } ,
+                font:
+                {
+                   size : 30
+                }
+            }
+        },
+        scales: {
+            y: {
+                display : false,
+                ticks:{
+                    font :{
+                        size : 10
+                    }
+                },
+                grid :{
+                    display : false
+                },
+                title :{
+                    display : false,
+                    text: "No Of Colleges",
+                    font:{
+                        size : 15,
+                    },
+    
+                },
+               
+                beginAtZero: true
+            },
+            x:{  
+                display : false,
+                ticks:{
+                    font :{
+                        size : 10
+                    }
+                },
+                grid :{
+                    display : false
+                },
+                title:{
+                    display:false,
+                    text:"Districts Name",
+                    font : {
+                        size : 15
+                    }
+                },
+            },
+
+        }
+    }
+});
+const ctx3 = document.getElementById('branch_Chart').getContext('2d');
+const branch_chart = new Chart(ctx3, {
+    type: 'line',
+    data: {
+        labels: [{% for branch in branches_charts %}'{{branch.branch_code}}',{% endfor %}],
+        datasets: [{
+            label: '# No Of Colleges ',
+            data: [{%  for branch in branches_charts %}{{branch.bcount}},{% endfor %}],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        maintainAspectRatio:false,
+        plugins :{
+            tooltip: {
+                titleFont: {
+                  size: 20
+                },
+                bodyFont: {
+                  size: 15
+                },
+                footerFont: {
+                  size: 15 // there is no footer by default
+                }
+              },
+            title : {
+                display : true,
+                text : "No Of Colleges Vs Branches",
+                padding:{
+                    top : 10,
+                    bottom : 20
+                } ,
+                font:
+                {
+                   size : 30
+                }
+            }
+        },
+        /* animations: {
+            tension: {
+              duration: 1000,
+              easing: 'linear',
+              from: 1,
+              to: 0,
+              loop: true
+            }
+          },*/
+        scales: {
+            y: {
+                ticks:{
+                    font :{
+                        size : 10
+                    }
+                },
+                grid :{
+                    display : true
+                },
+                title :{
+                    display : true,
+                    text: "No Of Colleges",
+                    font:{
+                        size : 15,
+                    },
+    
+                },
+               
+                beginAtZero: true
+            },
+            x:{  
+                ticks:{
+                    font :{
+                        size : 10
+                    }
+                },
+                grid :{
+                    display : true
+                },
+                title:{
+                    display:true,
+                    text:"Branches Name",
+                    font : {
+                        size : 15
+                    }
+                },
+            },
+
+        }
+    }
+});
+const ctx4 = document.getElementById('fee_Chart').getContext('2d');
+const fee_chart = new Chart(ctx4, {
+    type: 'pie',
+    data: {
+        labels: [{% for fee in fees_charts %}'{{fee.fees_cutoff}}',{% endfor %}],
+        datasets: [{
+            label: '# No Of Colleges ',
+            data: [{% for fee in fees_charts %}{{fee.clgs_count}},{% endfor %}],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    plugins: [ChartDataLabels],
+    options: {
+        maintainAspectRatio:false,
+        plugins :{
+            tooltip: {
+                titleFont: {
+                  size: 20
+                },
+                bodyFont: {
+                  size: 15
+                },
+                footerFont: {
+                  size: 15 // there is no footer by default
+                }
+              },
+            title : {
+                display : true,
+                text : "Choices Vs Fees",
+                padding:{
+                    top : 10,
+                    bottom : 20
+                } ,
+                font:
+                {
+                   size : 30
+                }
+            }
+        },
+        scales: {
+            y: {
+                display : false,
+                ticks:{
+                    font :{
+                        size : 10
+                    }
+                },
+                grid :{
+                    display : false
+                },
+                title :{
+                    display : false,
+                    text: "No Of Colleges",
+                    font:{
+                        size : 15,
+                    },
+    
+                },
+               
+                beginAtZero: true
+            },
+            x:{ 
+                display : false, 
+                ticks:{
+                    font :{
+                        size : 10
+                    }
+                },
+                grid :{
+                    display : false
+                },
+                title:{
+                    display:false,
+                    text:"Fee Range",
+                    font : {
+                        size : 15
+                    }
+                },
+            },
+
+        }
+    }
+});
+const ctx5 = document.getElementById('chances_Chart').getContext('2d');
+const chances_chart = new Chart(ctx5, {
+    type: 'doughnut',
+    data: {
+        labels: [{% for chance in chances_charts %}'{{chance.chances}}',{% endfor %}],
+        datasets: [{
+            label: '# No Of Colleges ',
+            data: [{%  for chance in chances_charts %}{{chance.clgs_count}},{% endfor %}],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    plugins: [ChartDataLabels],
+    options: {
+        maintainAspectRatio:false,
+        plugins :{
+            tooltip: {
+                titleFont: {
+                  size: 20
+                },
+                bodyFont: {
+                  size: 15
+                },
+                footerFont: {
+                  size: 15 // there is no footer by default
+                }
+              },
+            title : {
+                display : true,
+                text : "Choices Vs Chances",
+                padding:{
+                    top : 10,
+                    bottom : 20
+                } ,
+                font:
+                {
+                   size : 30
+                }
+            }
+        },
+        scales: {
+            y: {
+                display : false,
+                ticks:{
+                    font :{
+                        size : 10
+                    }
+                },
+                grid :{
+                    display : false
+                },
+                title :{
+                    display : false,
+                    text: "No Of Colleges",
+                    font:{
+                        size : 15,
+                    },
+    
+                },
+               
+                beginAtZero: true
+            },
+            x:{  
+                display : false,
+                ticks:{
+                    font :{
+                        size : 10
+                    }
+                },
+                grid :{
+                    display : false
+                },
+                title:{
+                    display:false,
+                    text:"Districts Name",
+                    font : {
+                        size : 15
+                    }
+                },
+            },
+
+        }
+    }
+});
+const ctx = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: [{% for chance in chances_charts %}'{{chance.chances}}',{% endfor %}],
+        datasets: [{
+            label: '# No Of Colleges ',
+            data: [{%  for chance in chances_charts %}{{chance.clgs_count}},{% endfor %}],
+            backgroundColor: [
+                '#F58787',
+                '#FFB266',
+                '#BAFFB4',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        plugins :{
+            title : {
+                display : true,
+                text : "No Of Colleges Vs Chances",
+                padding:{
+                    top : 10,
+                    bottom : 20
+                } 
+            }
+        },
+        scales: {
+            y: {
+                grid :{
+                    display : false 
+                },
+                beginAtZero: true
+            },
+            x:{  
+                grid :{
+                    display : false
+                }
+
+            }
+
+        }
+    }
+});
+
+</script>
+</body>
+</html>
